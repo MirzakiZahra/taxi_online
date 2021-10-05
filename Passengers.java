@@ -42,4 +42,11 @@ public class Passengers extends Person {
     public void setPassword(int password) {
         this.password = password;
     }
+	 public void increase_balance(Passengers passengers,int fund){
+        int temp=this.getBalance()+fund;
+        this.setBalance(temp);
+        //TODO: increase in database
+
+
+    }
 }
