@@ -3,6 +3,15 @@ public class Passengers extends Person {
     private int password;
     int balance=0;
     Driver driver= new Driver();
+	  Trip_status trip_status;
+
+    public Trip_status getTrip_status() {
+        return trip_status;
+    }
+
+    public void setTrip_status(Trip_status trip_status) {
+        this.trip_status = trip_status;
+    }
 
     public Driver getDriver() {
         return driver;
