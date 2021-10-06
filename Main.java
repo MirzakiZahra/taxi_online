@@ -146,94 +146,94 @@ public class Main {
                                 check = false;
 
                             }
-                    break;
-                    case 3:
-                        System.out.println("please enter your username");
-                        username = 0;
-                        if (!scanner.hasNextInt()) {
-                            check = true;
-                            throw new InputMismatchException("PLEASE enter integer");
-                        } else {
-                            username = scanner.nextInt();
-                            check = false;
-                        }
-                        int register;
-                        Driver driver = new Driver();
-                        int existance = db_driver.check_exist_driver(username);
-                        if (existance == 0) {
-                            System.out.println("1.register\n2.Exit");
+                            break;
+                        case 3:
+                            System.out.println("please enter your username");
+                            username = 0;
                             if (!scanner.hasNextInt()) {
-                                String register1=scanner.next();
                                 check = true;
                                 throw new InputMismatchException("PLEASE enter integer");
                             } else {
-                                register = scanner.nextInt();
+                                username = scanner.nextInt();
                                 check = false;
                             }
-                            if (register==1){
-                                System.out.println("name,age,address,username,name_of_car,plaque,color_of_car");
-                                name = scanner.next();
+                            int register;
+                            Driver driver = new Driver();
+                            int existance = db_driver.check_exist_driver(username);
+                            if (existance == 0) {
+                                System.out.println("1.register\n2.Exit");
                                 if (!scanner.hasNextInt()) {
-                                    String age1 = scanner.next();
+                                    String register1 = scanner.next();
                                     check = true;
-                                    throw new InputMismatchException("Please Enter Integer");
+                                    throw new InputMismatchException("PLEASE enter integer");
                                 } else {
-                                    age = scanner.nextInt();
+                                    register = scanner.nextInt();
                                     check = false;
                                 }
-                                address = scanner.next();
-                                if (!scanner.hasNextInt()) {
-                                    String username1 = scanner.next();
-                                    check = true;
-                                    throw new InputMismatchException("Please Enter Integer");
-                                } else {
-                                    username = scanner.nextInt();
+                                if (register == 1) {
+                                    System.out.println("name,age,address,username,name_of_car,plaque,color_of_car");
+                                    name = scanner.next();
+                                    if (!scanner.hasNextInt()) {
+                                        String age1 = scanner.next();
+                                        check = true;
+                                        throw new InputMismatchException("Please Enter Integer");
+                                    } else {
+                                        age = scanner.nextInt();
+                                        check = false;
+                                    }
+                                    address = scanner.next();
+                                    if (!scanner.hasNextInt()) {
+                                        String username1 = scanner.next();
+                                        check = true;
+                                        throw new InputMismatchException("Please Enter Integer");
+                                    } else {
+                                        username = scanner.nextInt();
+                                        check = false;
+                                    }
+                                    name_of_car = scanner.next();
+                                    if (!scanner.hasNextInt()) {
+                                        String plaque1 = scanner.next();
+                                        check = true;
+                                        throw new InputMismatchException("Please Enter Integer");
+                                    } else {
+                                        plaque = scanner.nextInt();
+                                        check = false;
+                                    }
+                                    color_of_car = scanner.next();
+                                    driver.setName(name);
+                                    driver.setAge(age);
+                                    driver.setAddress(address);
+                                    driver.setUsername(username);
+                                    driver.getCar().setName_of_car(name_of_car);
+                                    driver.getCar().setPlaque(plaque);
+                                    driver.getCar().setColor_of_car(color_of_car);
+                                    db_driver.add_driver(driver);
                                     check = false;
+
                                 }
-                                name_of_car = scanner.next();
-                                if (!scanner.hasNextInt()) {
-                                    String plaque1 = scanner.next();
-                                    check = true;
-                                    throw new InputMismatchException("Please Enter Integer");
-                                } else {
-                                    plaque = scanner.nextInt();
-                                    check = false;
+                                if (register == 2) {
+                                    break;
                                 }
-                                color_of_car = scanner.next();
-                                driver.setName(name);
-                                driver.setAge(age);
-                                driver.setAddress(address);
-                                driver.setUsername(username);
-                                driver.getCar().setName_of_car(name_of_car);
-                                driver.getCar().setPlaque(plaque);
-                                driver.getCar().setColor_of_car(color_of_car);
-                                db_driver.add_driver(driver);
+                            } else {
+                                System.out.println("user exist");
+
+                            }
+                            break;
+                        case 4:
+                            System.out.println("please enter your username");
+
+                            if (!scanner.hasNextInt()) {
+                                check = true;
+                                throw new InputMismatchException("PLEASE enter integer");
+                            } else {
+                                username = scanner.nextInt();
                                 check = false;
-
                             }
-                            if (register == 2){
-                                break;
-                            }
-                        } else {
-                            System.out.println("user exist");
 
-                        }
-                        break;
-                    case 4:
-                        System.out.println("please enter your username");
-
-                        if (!scanner.hasNextInt()) {
-                            check = true;
-                            throw new InputMismatchException("PLEASE enter integer");
-                        } else {
-                            username = scanner.nextInt();
-                            check = false;
-                        }
-
-                        Passengers passengers = new Passengers();
-                        existance = db_driver.check_exist_driver(username);
-                        if (existance == 0) {
-                            System.out.println("name,age,address,username,password,balance");
+                            Passengers passengers = new Passengers();
+                            existance = db_driver.check_exist_driver(username);
+                            if (existance == 0) {
+                                System.out.println("name,age,address,username,password,balance");
                            /* if ((!scanner.hasNext()) || (!scanner.hasNextInt()) || (!scanner.hasNext()) ||
                                     (!scanner.hasNextInt()) ||
                                     (!scanner.hasNextInt()) || (!scanner.hasNextInt())) {
@@ -249,80 +249,85 @@ public class Main {
                                 db_passenger.add_passenger(passengers);
                                 check = false;
                             }*/
-                            name = scanner.next();
-                            if (!scanner.hasNextInt()) {
-                                String age2 = scanner.next();
-                                check = true;
-                                throw new InputMismatchException("PLEASE enter integer");
-                            } else {
-                                age = scanner.nextInt();
-                                check = false;
-                            }
-                            address = scanner.next();
-                            if (!scanner.hasNextInt()) {
-                                String username2 = scanner.next();
-                                check = true;
-                                throw new InputMismatchException("PLEASE enter integer");
-                            } else {
-                                username = scanner.nextInt();
-                                check = false;
-                            }
-                            if (!scanner.hasNextInt()) {
-                                String password2 = scanner.next();
-                                check = true;
-                                throw new InputMismatchException("PLEASE enter integer");
-                            } else {
-                                password = scanner.nextInt();
-                                check = false;
-                            }
-                            if (!scanner.hasNextInt()) {
-                                String balance2 = scanner.next();
-                                check = true;
-                                throw new InputMismatchException("PLEASE enter integer");
-                            } else {
-                                balance = scanner.nextInt();
-                                check = false;
-                            }
-                            passengers = new Passengers();
-                            passengers.setName(name);
-                            passengers.setAge(age);
-                            passengers.setAddress(address);
-                            passengers.setUsername(username);
-                            passengers.setPassword(password);
-                            passengers.setBalance(balance);
-                            db_passenger.add_passenger(passengers);
-                            check = false;
-
-
-                        } else {
-                            int choice = 0;
-                            do {
-                                System.out.println("1.increase account balance\n2.exist");
-                                choice = scanner.nextInt();
-                                if (choice == 1) {
-                                    System.out.println("please enter fund");
-                                    db_passenger.increase_balance(username, scanner.nextInt());
-
+                                name = scanner.next();
+                                if (!scanner.hasNextInt()) {
+                                    String age2 = scanner.next();
+                                    check = true;
+                                    throw new InputMismatchException("PLEASE enter integer");
+                                } else {
+                                    age = scanner.nextInt();
+                                    check = false;
                                 }
-                            } while (choice != 2);
+                                address = scanner.next();
+                                if (!scanner.hasNextInt()) {
+                                    String username2 = scanner.next();
+                                    check = true;
+                                    throw new InputMismatchException("PLEASE enter integer");
+                                } else {
+                                    username = scanner.nextInt();
+                                    check = false;
+                                }
+                                if (!scanner.hasNextInt()) {
+                                    String password2 = scanner.next();
+                                    check = true;
+                                    throw new InputMismatchException("PLEASE enter integer");
+                                } else {
+                                    password = scanner.nextInt();
+                                    check = false;
+                                }
+                                if (!scanner.hasNextInt()) {
+                                    String balance2 = scanner.next();
+                                    check = true;
+                                    throw new InputMismatchException("PLEASE enter integer");
+                                } else {
+                                    balance = scanner.nextInt();
+                                    check = false;
+                                }
+                                passengers = new Passengers();
+                                passengers.setName(name);
+                                passengers.setAge(age);
+                                passengers.setAddress(address);
+                                passengers.setUsername(username);
+                                passengers.setPassword(password);
+                                passengers.setBalance(balance);
+                                db_passenger.add_passenger(passengers);
+                                check = false;
 
-                        }
-                        break;
-                    case 5:
-                        db_driver.show_driver();
-                        break;
-                    case 6:
-                        db_passenger.show_passenger();
-                        break;
+
+                            } else {
+                                int choice = 0;
+                                do {
+                                    System.out.println("1.increase account balance\n2.exist");
+                                    choice = scanner.nextInt();
+                                    if (choice == 1) {
+                                        System.out.println("please enter fund");
+                                        db_passenger.increase_balance(username, scanner.nextInt());
+
+                                    }
+                                } while (choice != 2);
+
+                            }
+                            break;
+                        case 5:
+                            db_driver.show_driver();
+                            break;
+                        case 6:
+                            db_passenger.show_passenger();
+                            break;
+                        case 7:
+                            break;
+                        default:
+                            check=true;
+                            throw new InputMismatchException("Please Enter Value Between 1-7");
 
 
-                }
+                    }
 
-            } while (input != 7) ;
+                } while (input != 7);
 
-        } catch(InputMismatchException inputMismatchException){
-            System.out.println(inputMismatchException.getMessage());
+            } catch (InputMismatchException inputMismatchException) {
+                System.out.println(inputMismatchException.getMessage());
+            }
         }
     }
-}
 }
