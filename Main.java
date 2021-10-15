@@ -282,7 +282,7 @@ public class Main {
                                 }
                             } else {
                                 String status = db_driver.getStatus(username);
-                                if (status.toLowerCase().charAt(0) ) {
+                                if (status.toLowerCase().charAt(0)== 'o' ) {
                                     driver = management.findDriver(username);
                                     boolean getMoney = false;
                                     do {
