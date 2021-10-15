@@ -58,4 +58,35 @@ public class Passengers extends Person {
 
 
     }
+	public Trip requestCash(Trip trip, int destinationLength,int destinationWidth,
+                            int originLength, int originWidth){
+        trip.setDestinationLength(destinationLength);
+        trip.setDestinationWidth(destinationWidth);
+        trip.setOriginalLength(originLength);
+        trip.setOrigenWidth(originWidth);
+        trip.setPassengers(this);
+        return trip;
+
+    }
+    public Trip requestOnline(Trip trip, int destinationLength,int destinationWidth,
+                                 int originLength, int originWidth, DB_passenger db_passenger,
+                              int username) throws SQLException {
+        trip.setDestinationLength(destinationLength);
+        trip.setDestinationWidth(destinationWidth);
+        trip.setOriginalLength(originLength);
+        trip.setOrigenWidth(originWidth);
+        if (db_passenger.findBalance(username)>= trip.calculateCost()){
+            trip.setPassengers(this);
+            this.decrease(trip.calculateCost());
+        }else {
+            System.out.println("Please Increase your Balance");
+        }
+        return trip;
+
+
+    }
+    public void decrease(int fund){
+        int number = this .balance-fund;
+        this.setBalance(number);
+    }
 }
