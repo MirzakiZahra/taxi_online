@@ -79,7 +79,6 @@ public class Main {
                                     plaque = scanner.nextInt();
                                     check = false;
                                 }
-                                color_of_car = scanner.next();
                                 driver.setName(name);
                                 driver.setAge(age);
                                 driver.setAddress(address);
@@ -87,7 +86,10 @@ public class Main {
                                 driver.getCar().setName_of_car(name_of_car);
                                 driver.getCar().setPlaque(plaque);
                                 driver.getCar().setColor_of_car(color_of_car);
+                                driver.setWidth(width);
+                                driver.setLength(length);
                                 db_driver.add_driver(driver);
+                                management.drivers.add(driver);
                                 check = false;
                             }
 
