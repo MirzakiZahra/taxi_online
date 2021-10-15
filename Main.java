@@ -50,7 +50,8 @@ public class Main {
                             }
                             int age, username, plaque;
                             for (int i = 0; i < number; i++) {
-                                System.out.println("name,age,address,username,name_of_car,plaque,color_of_car");
+                                System.out.println("name,age,address,username,name_of_car," +
+                                        "plaque,color_of_car,Width,Length");
                                 Driver driver = new Driver();
                                 name = scanner.next();
                                 if (!scanner.hasNextInt()) {
