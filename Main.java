@@ -204,7 +204,7 @@ public class Main {
                                 check = false;
                             }
                             int register;
-                            Driver driver = new Driver();
+                            driver = new Driver();
                             int existance = db_driver.check_exist_driver(username);
                             if (existance == 0) {
                                 System.out.println("1.register\n2.Exit");
@@ -216,8 +216,10 @@ public class Main {
                                     register = scanner.nextInt();
                                     check = false;
                                 }
+
                                 if (register == 1) {
-                                    System.out.println("name,age,address,username,name_of_car,plaque,color_of_car");
+                                    System.out.println("name,age,address,username,name_of_car,plaque" +
+                                            ",color_of_car, width,length");
                                     name = scanner.next();
                                     if (!scanner.hasNextInt()) {
                                         String age1 = scanner.next();
@@ -245,6 +247,22 @@ public class Main {
                                         plaque = scanner.nextInt();
                                         check = false;
                                     }
+                                    if (!scanner.hasNextInt()) {
+                                        String width1 = scanner.next();
+                                        check = true;
+                                        throw new InputMismatchException("Please Enter Integer");
+                                    } else {
+                                        width = scanner.nextInt();
+                                        check = false;
+                                    }
+                                    if (!scanner.hasNextInt()) {
+                                        String length1 = scanner.next();
+                                        check = true;
+                                        throw new InputMismatchException("Please Enter Integer");
+                                    } else {
+                                        length = scanner.nextInt();
+                                        check = false;
+                                    }
                                     color_of_car = scanner.next();
                                     driver.setName(name);
                                     driver.setAge(age);
@@ -253,15 +271,47 @@ public class Main {
                                     driver.getCar().setName_of_car(name_of_car);
                                     driver.getCar().setPlaque(plaque);
                                     driver.getCar().setColor_of_car(color_of_car);
+                                    driver.setLength(length);
+                                    driver.setWidth(width);
+                                    management.drivers.add(driver);
                                     db_driver.add_driver(driver);
                                     check = false;
-
                                 }
                                 if (register == 2) {
                                     break;
                                 }
                             } else {
-                                System.out.println("user exist");
+                                String status = db_driver.getStatus(username);
+                                if (status.toLowerCase().charAt(0) ) {
+                                    driver = management.findDriver(username);
+                                    boolean getMoney = false;
+                                    do {
+                                        System.out.println("1.confirm a money\n" +
+                                                "2.complete trip\n3.exit");
+                                        number = scanner.nextInt();
+                                        switch (number) {
+                                            case 1:
+                                                getMoney = true;
+                                                break;
+                                            case 2:
+                                                if (driver.getPaymentType().getAbbr().equalsIgnoreCase("c")) {
+                                                    if (getMoney == true) {
+                                                        management.finishTrip(driver, width, length, db_driver, db_trip,
+                                                                username, db_passenger);
+                                                    } else {
+                                                        System.out.println("Please Accept that you recieve money first");
+                                                    }
+                                                } else {
+                                                    management.finishTrip(driver, width, length, db_driver, db_trip,
+                                                            username, db_passenger);
+                                                }
+                                                break;
+                                            case 3:
+                                                break;
+                                        }
+                                    } while (number != 3);
+                                }
+
 
                             }
                             break;
