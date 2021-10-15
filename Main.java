@@ -316,7 +316,7 @@ public class Main {
                             }
                             break;
                         case 4:
-                            System.out.println("please enter your username");
+                             System.out.println("please enter your username");
 
                             if (!scanner.hasNextInt()) {
                                 check = true;
@@ -327,24 +327,9 @@ public class Main {
                             }
 
                             Passengers passengers = new Passengers();
-                            existance = db_driver.check_exist_driver(username);
+                            existance = db_passenger.check_exist_of_user(username);
                             if (existance == 0) {
-                                System.out.println("name,age,address,username,password,balance");
-                           /* if ((!scanner.hasNext()) || (!scanner.hasNextInt()) || (!scanner.hasNext()) ||
-                                    (!scanner.hasNextInt()) ||
-                                    (!scanner.hasNextInt()) || (!scanner.hasNextInt())) {
-                                check = true;
-                                throw new InputMismatchException("please enter valid input");
-                            } else {
-                                passengers.setName(scanner.next());
-                                passengers.setAge(scanner.nextInt());
-                                passengers.setAddress(scanner.next());
-                                passengers.setUsername(scanner.nextInt());
-                                passengers.setPassword(scanner.nextInt());
-                                passengers.setBalance(scanner.nextInt());
-                                db_passenger.add_passenger(passengers);
-                                check = false;
-                            }*/
+                                System.out.println("name,age,address,username,password,balance,width,length");
                                 name = scanner.next();
                                 if (!scanner.hasNextInt()) {
                                     String age2 = scanner.next();
@@ -379,6 +364,22 @@ public class Main {
                                     balance = scanner.nextInt();
                                     check = false;
                                 }
+                                if (!scanner.hasNextInt()) {
+                                    String width1 = scanner.next();
+                                    check = true;
+                                    throw new InputMismatchException("Please Enter Integer");
+                                } else {
+                                    width = scanner.nextInt();
+                                    check = false;
+                                }
+                                if (!scanner.hasNextInt()) {
+                                    String length1 = scanner.next();
+                                    check = true;
+                                    throw new InputMismatchException("Please Enter Integer");
+                                } else {
+                                    length = scanner.nextInt();
+                                    check = false;
+                                }
                                 passengers = new Passengers();
                                 passengers.setName(name);
                                 passengers.setAge(age);
@@ -386,22 +387,94 @@ public class Main {
                                 passengers.setUsername(username);
                                 passengers.setPassword(password);
                                 passengers.setBalance(balance);
+                                passengers.setLength(length);
+                                passengers.setWidth(width);
                                 db_passenger.add_passenger(passengers);
+                                management.passengers.add(passengers);
                                 check = false;
-
-
                             } else {
                                 int choice = 0;
+
                                 do {
-                                    System.out.println("1.increase account balance\n2.exist");
-                                    choice = scanner.nextInt();
-                                    if (choice == 1) {
-                                        System.out.println("please enter fund");
-                                        db_passenger.increase_balance(username, scanner.nextInt());
-
+                                    System.out.println("1.request trip with cash\n" +
+                                            "2.request trip with online \n3.increase balance\n4.exit");
+                                    if (!scanner.hasNextInt()) {
+                                        String choice1 = scanner.next();
+                                        check = true;
+                                        throw new InputMismatchException("Please Enter Integer");
+                                    } else {
+                                        choice = scanner.nextInt();
+                                        check = false;
                                     }
-                                } while (choice != 2);
+                                    switch (choice) {
+                                        case 1:
+                                            System.out.println("enter width & length of your origin & destination");
+                                            System.out.println("Origin Width, origin Length," +
+                                                    " destination Width, Destination Length");
+                                            int originWidth = scanner.nextInt();
+                                            int originLength = scanner.nextInt();
+                                            int destinationWidth = scanner.nextInt();
+                                            int DestinationLength = scanner.nextInt();
+                                            passengers = management.findPassengerByUsername(username);
+                                            trip = passengers.requestCash(trip, DestinationLength, destinationWidth,
+                                                    originLength, originWidth);
+                                            trip.setPassengers(passengers);
+                                            driver = management.minDistance(originWidth, originLength);
+                                            passengers.setDriver(driver);
+                                            driver.setTripStatue(Trip_status.ONTRIP);
+                                            driver.setPaymentType(PaymentType.CASH);
+                                            db_driver.changeStatus(passengers.getDriver().getUsername());
+                                            trip.setDriver(driver);
+                                            trip.setPaymentType(PaymentType.CASH);
+                                            trip.setTripStatus(Trip_status.ONTRIP);
+                                            db_trip.addTrip(trip);
+                                            System.out.println(" your request is successfully added ");
+                                            break;
+                                        case 2:
+                                            System.out.println("enter width & length of your origin & destination");
+                                            System.out.println("Origin Width, origin Length," +
+                                                    " destination Width, Destination Length");
+                                            originWidth = scanner.nextInt();
+                                            originLength = scanner.nextInt();
+                                            destinationWidth = scanner.nextInt();
+                                            DestinationLength = scanner.nextInt();
+                                            passengers = management.findPassengerByUsername(username);
+                                            trip = passengers.requestOnline(trip, DestinationLength, destinationWidth,
+                                                    originLength, originWidth, db_passenger, username);
+                                            trip.setPassengers(passengers);
+                                            driver = management.minDistance(originWidth, originLength);
+                                            passengers.setDriver(driver);
+                                            driver.setTripStatue(Trip_status.ONTRIP);
+                                            driver.setPaymentType(PaymentType.ONLINE);
+                                            db_driver.changeStatus(passengers.getDriver().getUsername());
+                                            trip.setDriver(driver);
+                                            trip.setPaymentType(PaymentType.ONLINE);
+                                            trip.setTripStatus(Trip_status.ONTRIP);
+                                            db_trip.addTrip(trip);
+                                            db_passenger.decreaseBalance(username, trip.calculateCost());
+                                            db_driver.increase(driver.getUsername(), trip.calculateCost());
+                                            System.out.println(" your request is successfully added ");
+                                            break;
 
+                                        case 3:
+                                            System.out.println("please enter fund");
+                                            int fund = 0;
+                                            if (!scanner.hasNextInt()) {
+                                                String fund1 = scanner.next();
+                                                check = true;
+                                                throw new InputMismatchException("Please Enter Integer");
+                                            } else {
+                                                fund = scanner.nextInt();
+                                                check = false;
+                                            }
+                                            db_passenger.increase_balance(username, fund);
+                                            break;
+                                        case 4:
+                                            break;
+                                    }
+
+
+                                } while (choice != 4);
                             }
                             break;
                         case 5:
