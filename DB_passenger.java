@@ -76,4 +76,58 @@ public class DB_passenger extends Database{
 
         }
     }
+	 public void increase_balance(int username, int fund) throws SQLException {
+        if (connection != null) {
+            Statement statement = connection.createStatement();
+            String sql = "select balance from passenger where username='" + username + "'";
+            ResultSet resultSet = statement.executeQuery(sql);
+            int temp = 0;
+            while (resultSet.next()) {
+                temp = resultSet.getInt("balance");
+            }
+            temp = temp + fund;
+            sql = "update passenger set balance= '" + temp + "' where username = '" + username + "'";
+            int number = statement.executeUpdate(sql);
+
+
+        }
+    }
+
+    public void decreaseBalance(int username, int fund) throws SQLException {
+        int balance = 0;
+        if (connection != null) {
+            Statement statement = connection.createStatement();
+            String sql = "select balance from passenger where username = '" + username + "'";
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                balance = resultSet.getInt(1);
+            }
+            if (balance >= fund) {
+                balance = balance - fund;
+                sql = "update passenger set balance='" + balance + "' where username='" + username + "'";
+                statement.executeUpdate(sql);
+            } else {
+                System.out.println("please increase your balance");
+            }
+
+        } else {
+            System.out.println("ERORR in Connection with DB");
+        }
+    }
+
+    public int findBalance(int username) throws SQLException {
+        if (connection != null) {
+            Statement statement = connection.createStatement();
+            String sql = "select balance from passenger where username=  '" + username + "'";
+            ResultSet resultSet = statement.executeQuery(sql);
+            int balance = 0;
+            while (resultSet.next()) {
+                balance = resultSet.getInt(1);
+            }
+            return balance;
+        } else {
+            System.out.println("ERORR in Connection with DB");
+        }
+        return 0;
+    }
 }
