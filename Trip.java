@@ -80,5 +80,9 @@ public class Trip {
     public void setDriver(Driver driver) {
         this.driver = driver;
     }
-	
+	public int calculateCost() {
+
+        int temp = ((destinationLength - originalLength) + (destinationWidth - origenWidth)) * 1000;
+        return temp;
+    }
 }
