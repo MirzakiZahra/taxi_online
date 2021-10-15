@@ -114,7 +114,7 @@ public class Main {
 
                             break;
                         case 2:
-                            System.out.println("please enter a number of passenger you want t add");
+                             System.out.println("please enter a number of passenger you want t add");
                             int password, balance;
                             if (!scanner.hasNextInt()) {
                                 String number1 = scanner.next();
@@ -126,7 +126,7 @@ public class Main {
                             }
 
                             for (int i = 0; i < number; i++) {
-                                System.out.println("name,age,address,username,password,balance");
+                                System.out.println("name,age,address,username,password,balance,Width,Length");
                                 name = scanner.next();
                                 if (!scanner.hasNextInt()) {
                                     String age2 = scanner.next();
@@ -161,6 +161,22 @@ public class Main {
                                     balance = scanner.nextInt();
                                     check = false;
                                 }
+                                if (!scanner.hasNextInt()) {
+                                    String width1 = scanner.next();
+                                    check = true;
+                                    throw new InputMismatchException("Please Enter Integer");
+                                } else {
+                                    width = scanner.nextInt();
+                                    check = false;
+                                }
+                                if (!scanner.hasNextInt()) {
+                                    String length1 = scanner.next();
+                                    check = true;
+                                    throw new InputMismatchException("Please Enter Integer");
+                                } else {
+                                    length = scanner.nextInt();
+                                    check = false;
+                                }
                                 Passengers passengers = new Passengers();
                                 passengers.setName(name);
                                 passengers.setAge(age);
@@ -169,9 +185,13 @@ public class Main {
                                 passengers.setPassword(password);
                                 passengers.setBalance(balance);
                                 db_passenger.add_passenger(passengers);
+                                passengers.setLength(length);
+                                passengers.setWidth(width);
+                                management.passengers.add(passengers);
+                                System.out.println(passengers.toString());
+                                System.out.println(management.passengers.toString());
                                 check = false;
-
-                            }
+							}
                             break;
                         case 3:
                             System.out.println("please enter your username");
