@@ -96,6 +96,40 @@ public class DB_driver extends Database {
         } else {
             System.out.println("ERORR in Connection with DB");
         }
+		public void increase(int username, int fund) throws SQLException {
+        int balance = 0;
+        if (connection != null) {
+            Statement statement = connection.createStatement();
+            String sql = "select balance from driver where username = '" + username + "'";
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                balance = resultSet.getInt(1);
+            }
+            balance = balance + fund;
+            sql = "update driver set balance='" + balance + "' where username='" + username + "'";
+
+
+        } else {
+            System.out.println("ERORR in Connection with DB");
+        }
+    }
+
+    public void changeDestination(int length, int width, int username) throws SQLException {
+        if (connection != null) {
+            Statement statement = connection.createStatement();
+            String sql = "update driver set  width='" + width + "' where username='" + username + "'";
+            statement.executeUpdate(sql);
+            sql = "update driver set  length='" + length + "' where username='" + username + "'";
+            statement.executeUpdate(sql);
+
+
+
+        }
+        else {
+            System.out.println("ERORR in Connection with DB");
+        }
+
+    }
 
     }
 
