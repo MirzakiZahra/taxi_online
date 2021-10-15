@@ -79,6 +79,23 @@ public class Main {
                                     plaque = scanner.nextInt();
                                     check = false;
                                 }
+                                color_of_car = scanner.next();
+                                if (!scanner.hasNextInt()) {
+                                    String width1 = scanner.next();
+                                    check = true;
+                                    throw new InputMismatchException("Please Enter Integer");
+                                } else {
+                                    width = scanner.nextInt();
+                                    check = false;
+                                }
+                                if (!scanner.hasNextInt()) {
+                                    String length1 = scanner.next();
+                                    check = true;
+                                    throw new InputMismatchException("Please Enter Integer");
+                                } else {
+                                    length = scanner.nextInt();
+                                    check = false;
+                                }
                                 driver.setName(name);
                                 driver.setAge(age);
                                 driver.setAddress(address);
