@@ -18,4 +18,19 @@ public class Driver extends Person {
         this.car = car;
     }
     public Driver(){}
+	 public int calculateDistance(int passengerWidth,int passengerLength){
+        return ((this.Length-passengerLength)+(this.Width-passengerWidth));
+    }
+
+    @Override
+    public String toString() {
+        return "Driver{" +
+                "car=" + car +
+                ", balance=" + balance +
+                ", tripStatue=" + tripStatue +
+                ", Width=" + Width +
+                ", Length=" + Length +
+                ", paymentType=" + paymentType +
+                '}';
+    }
 }
