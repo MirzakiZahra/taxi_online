@@ -6,11 +6,17 @@ public class Main {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         DB_driver db_driver = new DB_driver();
         DB_passenger db_passenger = new DB_passenger();
+		DB_trip db_trip = new DB_trip();
+        Management management = new Management();
+        Driver driver = new Driver();
+        Trip trip = new Trip();
         boolean check = true;
         String name;
         String address;
         String name_of_car;
         String color_of_car;
+		 int width = 0;
+        int length = 0;
         while (check == true) {
             try {
                 Scanner scanner = new Scanner(System.in);
