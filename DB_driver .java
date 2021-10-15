@@ -66,6 +66,38 @@ public class DB_driver extends Database {
             System.out.println("ERORR in Connection with DB");
         }
     }
+	 public String getStatus(int username) throws SQLException {
+        String tripStatus = new String();
+        if (connection != null) {
+            Statement statement = connection.createStatement();
+            String sql = "select tripStatue from driver where username=  '" + username + "'";
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                tripStatus = resultSet.getString("tripStatue");
+            }
+        } else {
+            System.out.println("ERORR in Connection with DB");
+        }
+        return tripStatus;
+
+    }
+
+    public void changeStatus(int username) throws SQLException {
+        if (connection != null) {
+            Statement statement = connection.createStatement();
+            if (this.getStatus(username) == "on") {
+                String sql = "update driver set tripStatue = 'off' where username='" + username + "'";
+                statement.executeUpdate(sql);
+            } else {
+                String sql = "update driver set tripStatue = 'on' where username='" + username + "'";
+                statement.executeUpdate(sql);
+
+            }
+        } else {
+            System.out.println("ERORR in Connection with DB");
+        }
+
+    }
 
    
 }
